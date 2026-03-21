@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String            @id @default(cuid())
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  address           String            @unique
+  displayName       String?
+  cachedOrvxBalance String            @default("0")
+  tier              UserTier          @default(OBSERVER)
+  wallet            Wallet?
+  stakingPositions  StakingPosition[]
+  rewardClaims      RewardClaim[]
+  activityLogs      ActivityLog[]
+  sessions          Session[]
+}
+
+model Wallet {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  address   String   @unique
+  chainId   Int      @default(11155111)
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
+}
+
+model StakingPosition {
+  id              String        @id @default(cuid())
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amountWei       String
+  amountFormatted Decimal
+  lockDuration    Int           @default(0)
+  stakedAt        DateTime      @default(now())
+  unlocksAt       DateTime?
+  status          StakingStatus @default(ACTIVE)
+  unstakedAt      DateTime?
+  txHash          String?
+  rewardClaims    RewardClaim[]
+}
+
+model RewardClaim {
+  id              String           @id @default(cuid())
+  createdAt       DateTime         @default(now())
+  userId          String
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  positionId      String?
+  position        StakingPosition? @relation(fields: [positionId], references: [id])
+  amountWei       String
+  amountFormatted Decimal
+  txHash          String
+  claimedAt       DateTime         @default(now())
+}
+
+model SiteAnnouncement {
+  id            String           @id @default(cuid())
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  title         String
+  content       String
+  type          AnnouncementType @default(INFO)
+  isActive      Boolean          @default(true)
+  isPinned      Boolean          @default(false)
+  authorAddress String
+}
+
+model SiteSetting {
+  id        String      @id @default(cuid())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  key       String      @unique
+  value     String
+  type      SettingType @default(STRING)
+  label     String
+  group     String      @default("general")
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String
+  details   Json?
+}
+
+enum UserTier {
+  OBSERVER
+  MEMBER
+  HOLDER
+  PRIME
+  SOVEREIGN
+}
+
+enum StakingStatus {
+  ACTIVE
+  UNSTAKED
+  LOCKED
+}
+
+enum AnnouncementType {
+  INFO
+  SUCCESS
+  WARNING
+  CRITICAL
+}
+
+enum SettingType {
+  STRING
+  NUMBER
+  BOOLEAN
+  JSON
+}
