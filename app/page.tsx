@@ -42,6 +42,9 @@ export default function Home() {
           <a href="#tokenomics" style={{ border: '1px solid rgba(198,161,91,0.3)', color: '#C6A15B', borderRadius: '8px', padding: '14px 28px', fontSize: '14px', textDecoration: 'none' }}>
             View Tokenomics
           </a>
+          <a href="/orvethic-whitepaper.pdf" target="_blank" style={{ border: '1px solid rgba(255,255,255,0.1)', color: '#8E8A83', borderRadius: '8px', padding: '14px 28px', fontSize: '14px', textDecoration: 'none' }}>
+  Download Whitepaper
+</a>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', maxWidth: '600px', margin: '64px auto 0', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '12px', overflow: 'hidden' }}>
