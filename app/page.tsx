@@ -12,19 +12,19 @@ export default function Home() {
         </div>
         <div style={{ display: 'flex', gap: '32px' }}>
           {['Tokenomics', 'Roadmap', 'FAQ'].map(item => (
-            <a key={item} href="#" style={{ color: '#8E8A83', fontSize: '13px', textDecoration: 'none' }}>{item}</a>
+            <a key={item} href={`#${item.toLowerCase()}`} style={{ color: '#8E8A83', fontSize: '13px', textDecoration: 'none' }}>{item}</a>
           ))}
         </div>
-        <button style={{ background: '#C6A15B', color: '#0B0B0F', border: 'none', borderRadius: '8px', padding: '10px 20px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
-          Connect Wallet
-        </button>
+        <a href="https://twitter.com/orvethic" target="_blank" style={{ background: '#C6A15B', color: '#0B0B0F', borderRadius: '8px', padding: '10px 20px', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>
+          Follow @orvethic
+        </a>
       </nav>
 
       {/* Hero */}
-      <section style={{ textAlign: 'center', padding: '120px 40px 80px', position: 'relative' }}>
+      <section style={{ textAlign: 'center', padding: '120px 40px 80px' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(198,161,91,0.25)', borderRadius: '999px', padding: '6px 14px', marginBottom: '32px' }}>
           <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#C6A15B' }}></div>
-          <span style={{ color: '#C6A15B', fontSize: '11px', fontWeight: '500' }}>ORVX — Now live on Sepolia Testnet</span>
+          <span style={{ color: '#C6A15B', fontSize: '11px', fontWeight: '500' }}>ORVX — Testnet phase · Mainnet coming soon</span>
         </div>
         
         <h1 style={{ fontSize: '64px', fontWeight: '600', lineHeight: '1.1', marginBottom: '24px', letterSpacing: '-2px' }}>
@@ -38,9 +38,9 @@ export default function Home() {
         </p>
         
         <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <button style={{ background: '#C6A15B', color: '#0B0B0F', border: 'none', borderRadius: '8px', padding: '14px 28px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>
-            Connect Wallet →
-          </button>
+          <a href="https://twitter.com/orvethic" target="_blank" style={{ background: '#C6A15B', color: '#0B0B0F', border: 'none', borderRadius: '8px', padding: '14px 28px', fontSize: '14px', fontWeight: '600', textDecoration: 'none' }}>
+            Join the Community →
+          </a>
           <a href="#tokenomics" style={{ border: '1px solid rgba(198,161,91,0.3)', color: '#C6A15B', borderRadius: '8px', padding: '14px 28px', fontSize: '14px', textDecoration: 'none' }}>
             View Tokenomics
           </a>
@@ -61,7 +61,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Staking Preview */}
+      {/* Staking */}
       <section style={{ padding: '80px 40px', maxWidth: '800px', margin: '0 auto' }} id="staking">
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <p style={{ color: '#8E8A83', fontSize: '11px', letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '12px' }}>Staking</p>
@@ -104,4 +104,28 @@ export default function Home() {
           { label: 'Community Rewards', percent: 8, color: '#604828' },
         ].map((item, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '12px' }}>
-            <span style={{ color: '#F3EEE7', fontSize: '14px', fontWeigh
+            <span style={{ color: '#F3EEE7', fontSize: '14px', fontWeight: '600', width: '40px', textAlign: 'right' }}>{item.percent}%</span>
+            <div style={{ flex: 1, height: '32px', borderRadius: '6px', background: 'rgba(255,255,255,0.04)', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${item.percent * 3.3}%`, background: item.color, opacity: 0.8, borderRadius: '6px' }}></div>
+            </div>
+            <span style={{ color: '#8E8A83', fontSize: '13px', width: '160px' }}>{item.label}</span>
+          </div>
+        ))}
+      </section>
+
+      {/* Footer */}
+      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '40px', textAlign: 'center', marginTop: '80px' }}>
+        <p style={{ color: '#C6A15B', fontSize: '13px', letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '16px' }}>Orvethic</p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', marginBottom: '16px' }}>
+          <a href="https://twitter.com/orvethic" target="_blank" style={{ color: '#8E8A83', fontSize: '13px', textDecoration: 'none' }}>X (Twitter)</a>
+          <span style={{ color: '#3E2F1C' }}>·</span>
+          <a href="#tokenomics" style={{ color: '#8E8A83', fontSize: '13px', textDecoration: 'none' }}>Tokenomics</a>
+          <span style={{ color: '#3E2F1C' }}>·</span>
+          <a href="#staking" style={{ color: '#8E8A83', fontSize: '13px', textDecoration: 'none' }}>Staking</a>
+        </div>
+        <p style={{ color: '#5a5751', fontSize: '11px' }}>ORVX is a utility token. Not financial advice. Always do your own research.</p>
+      </footer>
+
+    </main>
+  );
+}
